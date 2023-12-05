@@ -13,8 +13,7 @@ function SideBar({ onCreateProject, projects }) {
             key={project.id}
             className="mt-4 flex items-center justify-between"
           >
-            <span>{project.name}</span>
-            <span>{project.id}</span>
+            <span>{project.title}</span>
           </li>
         ))}
       </ul>

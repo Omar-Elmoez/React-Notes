@@ -20,11 +20,16 @@ function App() {
     })
   }
 
-  const addingNewProjectHandler = (createdProject) => {
+  const addingNewProjectHandler = (projectData) => {
+    const newProject = {
+      id: Math.random(),
+      ...projectData
+    }
     setProjectsState(prevState => {
       return {
         ...prevState,
-        projects: [...prevState.projects, createdProject]
+        // projects: [...prevState.projects, createdProject]
+        projects: [...prevState.projects, newProject]
       }
     })
   }
@@ -33,11 +38,10 @@ function App() {
   if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onCreateProject={startaddingProjectHandler} />
   } else if (projectsState.selectedProjectId === null) {
-    content = <NewProject projects={projectsState.projects} onCreateProject={addingNewProjectHandler}  />
+    content = <NewProject onSave={addingNewProjectHandler}  />
   }
 
-  console.log(projectsState)
-
+  console.log(projectsState.projects);
   return (
     <main className="pt-8 h-screen flex gap-8">
       <SideBar onCreateProject={startaddingProjectHandler} projects={projectsState.projects} />
