@@ -21,14 +21,15 @@ function App() {
   }
 
   const addingNewProjectHandler = (projectData) => {
-    const newProject = {
-      id: Math.random(),
-      ...projectData
-    }
     setProjectsState(prevState => {
+      const newProject = {
+        id: Math.random(),
+        ...projectData
+      }
       return {
         ...prevState,
         // projects: [...prevState.projects, createdProject]
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject]
       }
     })
