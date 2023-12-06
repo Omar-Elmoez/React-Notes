@@ -52,10 +52,33 @@ function App() {
       };
     });
   };
-  let chosenProject = projectState.projects.find(project => project.id === projectState.selectedProjectId)
 
-  let content = <SelectedProject project={chosenProject} />;
-  
+  // const removeProjectHandler = (id) => {
+  //   setProjectState((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       projects: prevState.projects.filter((p) => p.id !== id),
+  //       selectedProjectId: undefined,
+  //     };
+  //   });
+  // };
+
+  const removeProjectHandler = () => {
+    setProjectState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(p => p.id !== prevState.selectedProjectId),
+      }
+    } )
+  }
+
+  let chosenProject = projectState.projects.find(
+    (project) => project.id === projectState.selectedProjectId
+  );
+
+  let content = <SelectedProject project={chosenProject} onDelete={removeProjectHandler} />;
+
   if (projectState.selectedProjectId === undefined) {
     content = <NoProjectSelected onCreateProject={startaddingProjectHandler} />;
   } else if (projectState.selectedProjectId === null) {
