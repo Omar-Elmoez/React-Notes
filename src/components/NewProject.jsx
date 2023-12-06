@@ -8,6 +8,10 @@ export default function NewProject({ onSave, onCancel }) {
   const dateRef = useRef();
   const modal = useRef();
 
+  const capitalize = (str) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   // const [createdProject, setCreatedProject] = useState({
   //   name: "",
   //   date: "",
@@ -38,15 +42,10 @@ export default function NewProject({ onSave, onCancel }) {
     }
 
     onSave({
-      title: enteredTitle,
+      title: capitalize(enteredTitle),
       description: enteredDescription,
       date: enteredDate,
     });
-
-    // Make inputs empty
-    enteredTitle = "";
-    enteredDescription = "";
-    enteredDate = "";
   };
 
 
