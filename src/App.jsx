@@ -6,6 +6,7 @@ import SelectedProject from "./components/SelectedProject";
 function App() {
   const [projectState, setProjectState] = useState({
     projects: [],
+    tasks: [],
     // undefined means => you don't select any project and you are not going to add a new one.
     selectedProjectId: undefined,
   });
@@ -64,20 +65,54 @@ function App() {
   // };
 
   const removeProjectHandler = () => {
-    setProjectState(prevState => {
+    setProjectState((prevState) => {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projects: prevState.projects.filter(p => p.id !== prevState.selectedProjectId),
-      }
-    } )
-  }
+        projects: prevState.projects.filter(
+          (p) => p.id !== prevState.selectedProjectId
+        ),
+      };
+    });
+  };
+
+  const addTaskHandler = (taskText) => {
+    setProjectState((prevState) => {
+      const newTask = {
+        text: taskText,
+        id: Math.random(),
+        relatedProjectId: prevState.selectedProjectId
+      };
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, newTask]
+      };
+    });
+  };
+  const removeTaskHandler = (id) => {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter(
+          (t) => t.id !== id
+        ),
+      };
+    });
+  };
 
   let chosenProject = projectState.projects.find(
     (project) => project.id === projectState.selectedProjectId
   );
 
-  let content = <SelectedProject project={chosenProject} onDelete={removeProjectHandler} />;
+  let content = (
+    <SelectedProject
+      project={chosenProject}
+      onDelete={removeProjectHandler}
+      onAddTask={addTaskHandler}
+      onDeleteTask={removeTaskHandler}
+      tasks={projectState.tasks}
+    />
+  );
 
   if (projectState.selectedProjectId === undefined) {
     content = <NoProjectSelected onCreateProject={startaddingProjectHandler} />;

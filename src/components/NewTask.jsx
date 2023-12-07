@@ -11,6 +11,9 @@ export default function NewTask({onAddingTask}) {
   }
 
   const clickButtonHandler = () => {
+    if (task.trim() === "") {
+      return;
+    }
     onAddingTask(task);
     setTask("")
   }
