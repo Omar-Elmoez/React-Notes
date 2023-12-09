@@ -1,5 +1,5 @@
 import NoProjectPhoto from "../assets/no-projects.png";
-import Button from "./Button";
+import { Button } from '../components'
 
 export default function NoProjectSelected({ onCreateProject }) {
   return (

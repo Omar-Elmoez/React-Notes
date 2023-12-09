@@ -1,4 +1,4 @@
-import NewTask from "./NewTask";
+import { NewTask } from "../components";
 
 export default function Tasks({ tasks, onAdd, onDelete, selectedProjectId }) {
 
