@@ -1,8 +1,12 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Input, Modal } from "../components";
+import { ProjectContext } from "../store/project-context";
 
 
-export default function NewProject({ onSave, onCancel }) {
+export default function NewProject() {
+
+  const { addingNewProject, cancelProject } = useContext(ProjectContext)
+
   const titleRef = useRef();
   const descriptionRef = useRef();
   const dateRef = useRef();
@@ -27,6 +31,7 @@ export default function NewProject({ onSave, onCancel }) {
   // };
 
   const saveHandler = () => {
+
     const enteredTitle = titleRef.current.value;
     const enteredDescription = descriptionRef.current.value;
     const enteredDate = dateRef.current.value;
@@ -41,7 +46,7 @@ export default function NewProject({ onSave, onCancel }) {
       return;
     }
 
-    onSave({
+    addingNewProject({
       title: capitalize(enteredTitle),
       description: enteredDescription,
       date: enteredDate,
@@ -62,7 +67,7 @@ export default function NewProject({ onSave, onCancel }) {
         <li><button>Save</button></li>
       </menu> */}
         <div className="text-right space-x-4 my-4">
-          <button className="text-stone-600 hover:text-stone-950" onClick={onCancel}>
+          <button className="text-stone-600 hover:text-stone-950" onClick={cancelProject}>
             Cancel
           </button>
           <button

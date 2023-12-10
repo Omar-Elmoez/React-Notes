@@ -1,8 +1,14 @@
 // import { useRef } from "react";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TaskContext } from "../store/task-context";
+import { ProjectContext } from "../store/project-context";
 
-export default function NewTask({onAddingTask}) {
+export default function NewTask() {
+
+  const { addTask } = useContext(TaskContext);
+  const { selectedProjectId } = useContext(ProjectContext)
+
   // const task = useRef();
   const [task, setTask] = useState("");
 
@@ -14,7 +20,7 @@ export default function NewTask({onAddingTask}) {
     if (task.trim() === "") {
       return;
     }
-    onAddingTask(task);
+    addTask(selectedProjectId, task);
     setTask("")
   }
 

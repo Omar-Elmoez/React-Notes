@@ -1,17 +1,19 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const ProjectContext = createContext({
   projects: [],
-  tasks: [],
+  selectedProject: {},
   selectedProjectId: undefined,
   startaddingProject: () => {},
+  addingNewProject: () => {},
+  cancelProject: () => {},
+  selectProject: () => {},
+  removeProject: () => {},
 });
 
 export default function ProjectContextProvider({ children }) {
-
   const [projectsState, setProjectsState] = useState({
     projects: [],
-    tasks: [],
     // undefined means => you don't select any project and you are not going to add a new one.
     selectedProjectId: undefined,
   });
@@ -26,11 +28,64 @@ export default function ProjectContextProvider({ children }) {
     });
   };
 
+  const cancelHandler = () => {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+      };
+    });
+  };
+
+  const selectProjectHandler = (id) => {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      };
+    });
+  };
+
+  let chosenProject = projectsState.projects.find(
+    (project) => project.id === projectsState.selectedProjectId
+  );
+
+  const removeProjectHandler = () => {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (p) => p.id !== prevState.selectedProjectId
+        ),
+      };
+    });
+  };
+
+  const addingNewProjectHandler = (projectData) => {
+    setProjectsState((prevState) => {
+      const newProject = {
+        id: Math.random(),
+        ...projectData,
+      };
+      return {
+        ...prevState,
+        // projects: [...prevState.projects, createdProject]
+        selectedProjectId: undefined,
+        projects: [...prevState.projects, newProject],
+      };
+    });
+  };
+
   const CtxValues = {
     projects: projectsState.projects,
-    tasks: projectsState.tasks,
+    selectedProject: chosenProject,
     selectedProjectId: projectsState.selectedProjectId,
     startaddingProject: startaddingProjectHandler,
+    addingNewProject: addingNewProjectHandler,
+    cancelProject: cancelHandler,
+    selectProject: selectProjectHandler,
+    removeProject: removeProjectHandler,
   };
 
   return (
