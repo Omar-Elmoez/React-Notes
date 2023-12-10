@@ -25,7 +25,7 @@ export default function Tasks() {
       )}
       {projectTasksNumber > 0 && (
         <ul className="mt-8 p-4 bg-stone-100 rounded-sm">
-          {tasks.map((task, index) => {
+          {tasks.map((task) => {
             if (task.relatedProjectId === selectedProjectId) {
               return (
                 <li
@@ -33,7 +33,7 @@ export default function Tasks() {
                   className="my-4 flex items-center justify-between"
                 >
                   <span>
-                    {index + 1}- {task.text}
+                    {task.text}
                   </span>
                   <button
                     className="text-stone-700 hover:text-red-500"
