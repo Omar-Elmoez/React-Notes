@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
+import projectReducer from "../reducers/project-reducer";
 
 export const ProjectContext = createContext({
   projects: [],
@@ -12,38 +13,30 @@ export const ProjectContext = createContext({
 });
 
 export default function ProjectContextProvider({ children }) {
-  const [projectsState, setProjectsState] = useState({
+
+  const [projectsState, projectDispatch] = useReducer(projectReducer, {
     projects: [],
     // undefined means => you don't select any project and you are not going to add a new one.
     selectedProjectId: undefined,
   });
 
   const startaddingProjectHandler = () => {
-    setProjectsState((prevState) => {
-      return {
-        ...prevState,
-        // null means => you are going to add a new one.
-        selectedProjectId: null,
-      };
-    });
+    projectDispatch({
+      type: "START_ADDING_PROJECT",
+    })
   };
 
   const cancelHandler = () => {
-    setProjectsState((prevState) => {
-      return {
-        ...prevState,
-        selectedProjectId: undefined,
-      };
-    });
+    projectDispatch({
+      type: 'CANCEL_ADDING_PROJECT'
+    })
   };
 
   const selectProjectHandler = (id) => {
-    setProjectsState((prevState) => {
-      return {
-        ...prevState,
-        selectedProjectId: id,
-      };
-    });
+    projectDispatch({
+      type: "SELECT_PROJECT",
+      payload: id
+    })
   };
 
   let chosenProject = projectsState.projects.find(
@@ -51,30 +44,16 @@ export default function ProjectContextProvider({ children }) {
   );
 
   const removeProjectHandler = () => {
-    setProjectsState((prevState) => {
-      return {
-        ...prevState,
-        selectedProjectId: undefined,
-        projects: prevState.projects.filter(
-          (p) => p.id !== prevState.selectedProjectId
-        ),
-      };
-    });
+    projectDispatch({
+      type: "REMOVE_PROJECT",
+    })
   };
 
   const addingNewProjectHandler = (projectData) => {
-    setProjectsState((prevState) => {
-      const newProject = {
-        id: Math.random(),
-        ...projectData,
-      };
-      return {
-        ...prevState,
-        // projects: [...prevState.projects, createdProject]
-        selectedProjectId: undefined,
-        projects: [...prevState.projects, newProject],
-      };
-    });
+    projectDispatch({
+      type: 'ADD_NEW_PROJECT',
+      payload: projectData
+    })
   };
 
   const CtxValues = {
