@@ -19,7 +19,7 @@ function SideBar() {
 
   console.log(projectTasksNumber[0]);
   return (
-    <aside className="w-1/3 md:w-72 py-16 px-8 bg-red-900 text-stone-50 sticky top-0 h-[100dvh] rounded-r-xl">
+    <aside className="w-1/3 md:w-72 py-16 px-8 bg-stone-900 text-stone-50 sticky top-0 h-[100dvh] rounded-r-xl">
       <h2 className="text-stone-200 md:text-xl font-bold uppercase">
         Your Projects
       </h2>
