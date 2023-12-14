@@ -13,14 +13,13 @@ export default function projectReducer(state, action) {
       ...action.payload,
     };
 
-
     const updatedProjects = [...state.projects, newProject];
     localStorage.setItem("projects", JSON.stringify(updatedProjects));
 
     return {
       ...state,
       selectedProjectId: undefined,
-      projects: [...state.projects, newProject],
+      projects: updatedProjects,
     };
   }
 

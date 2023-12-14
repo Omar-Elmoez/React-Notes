@@ -2,6 +2,9 @@ import { useContext, useRef, useState } from "react";
 import { Input, Modal } from "../components";
 import { ProjectContext } from "../store/project-context";
 
+const capitalize = (str) => {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+};
 
 export default function NewProject() {
 
@@ -12,9 +15,7 @@ export default function NewProject() {
   const dateRef = useRef();
   const modal = useRef();
 
-  const capitalize = (str) => {
-    return str.replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+
 
   // const [createdProject, setCreatedProject] = useState({
   //   name: "",

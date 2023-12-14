@@ -3,8 +3,12 @@ import { NewTask } from "../components";
 import { TaskContext } from "../store/task-context";
 import { ProjectContext } from "../store/project-context";
 
+const capitalize = (str) => {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 export default function Tasks() {
-  const { tasks, removeTask } = useContext(TaskContext);
+  const { tasks, removeTask, markAsCompleted } = useContext(TaskContext);
   const { selectedProjectId } = useContext(ProjectContext);
 
   let projectTasksNumber = tasks.reduce((acc, task) => {
@@ -24,23 +28,29 @@ export default function Tasks() {
         </p>
       )}
       {projectTasksNumber > 0 && (
-        <ul className="mt-8 p-4 bg-stone-100 rounded-sm">
+        <ul className="mt-8 p-4 rounded-sm">
           {tasks.map((task) => {
             if (task.relatedProjectId === selectedProjectId) {
               return (
                 <li
                   key={task.id}
-                  className="my-4 flex items-center justify-between"
+                  className={`relative group/item my-4 flex items-center justify-between shadow-md p-4 hover:-translate-y-2 duration-500`}
                 >
+                  {task.isCompleted && <span className="absolute inset-0 bg-green-800 group-hover/item:bg-green-800/30 text-white group-hover/item:text-transparent text-xl tracking-wider font-bold flex items-center justify-center">Completed</span>}
                   <span>
-                    {task.text}
+                    {capitalize(task.text)}
                   </span>
-                  <button
-                    className="text-stone-700 hover:text-red-500"
-                    onClick={() => removeTask(task.id)}
-                  >
-                    Clear
-                  </button>
+                  <div className="space-x-4 group-hover/item:z-10">
+                    <button className="text-stone-700 hover:text-green-500 font-bold" onClick={() => markAsCompleted(task.id)}>
+                      {task.isCompleted ? 'Uncomplete' : 'Complete'}
+                    </button>
+                    <button
+                      className="text-stone-700 hover:text-red-500"
+                      onClick={() => removeTask(task.id)}
+                    >
+                      Clear
+                    </button>
+                  </div>
                 </li>
               );
             }

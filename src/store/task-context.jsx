@@ -1,10 +1,11 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useReducer } from "react";
 import taskReducer from "../reducers/task-reducer";
 
 export const TaskContext = createContext({
   tasks: [],
   addTask: () => {},
   removeTask: () => {},
+  markAsCompleted: () => {},
 });
 
 const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -30,10 +31,18 @@ export default function TaskContextProvider({ children }) {
     })
   };
 
+  const completeHandler = (id) => {
+    taskDispatch({
+      type: "COMPLETE_TASK",
+      payload: id
+    })
+  }
+
   const CtxValues = {
     tasks: tasks,
     addTask: addTaskHandler,
     removeTask: removeTaskHandler,
+    markAsCompleted: completeHandler
   };
 
   return (
