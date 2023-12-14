@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer, useState } from "react";
+import taskReducer from "../reducers/task-reducer";
 
 export const TaskContext = createContext({
   tasks: [],
@@ -7,24 +8,24 @@ export const TaskContext = createContext({
 });
 
 export default function TaskContextProvider({ children }) {
-  const [tasks, setTasks] = useState([]);
+
+  const [tasks, taskDispatch] = useReducer(taskReducer, []);
 
   const addTaskHandler = (projectId, taskText) => {
-    setTasks((prevState) => {
-      const newTask = {
-        text: taskText,
-        id: Math.random(),
-        relatedProjectId: projectId,
-      };
-
-      return [...prevState, newTask];
-    });
+    taskDispatch({
+      type: "ADD_TASK",
+      payload: {
+        projectId,
+        taskText,
+      }
+    })
   };
 
   const removeTaskHandler = (id) => {
-    setTasks((prevState) => {
-      return prevState.filter((t) => t.id !== id);
-    });
+    taskDispatch({
+      type: "REMOVE_TASK",
+      payload: id
+    })
   };
 
   const CtxValues = {
