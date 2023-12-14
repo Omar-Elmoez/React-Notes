@@ -7,9 +7,11 @@ export const TaskContext = createContext({
   removeTask: () => {},
 });
 
+const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
 export default function TaskContextProvider({ children }) {
 
-  const [tasks, taskDispatch] = useReducer(taskReducer, []);
+  const [tasks, taskDispatch] = useReducer(taskReducer, storedTasks);
 
   const addTaskHandler = (projectId, taskText) => {
     taskDispatch({

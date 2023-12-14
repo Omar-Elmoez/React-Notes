@@ -12,10 +12,12 @@ export const ProjectContext = createContext({
   removeProject: () => {},
 });
 
+const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+
 export default function ProjectContextProvider({ children }) {
 
   const [projectsState, projectDispatch] = useReducer(projectReducer, {
-    projects: [],
+    projects: storedProjects,
     // undefined means => you don't select any project and you are not going to add a new one.
     selectedProjectId: undefined,
   });
