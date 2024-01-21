@@ -12,10 +12,6 @@ import { ProjectContext } from "./store/project-context";
 function App() {
   const { selectedProjectId } = useContext(ProjectContext);
 
-
-
-
-
   let content = <SelectedProject />;
 
   if (selectedProjectId === undefined) {
@@ -25,7 +21,7 @@ function App() {
   }
 
   return (
-    <main className="pt-8 flex items-start gap-8 bg-slate-100">
+    <main className="py-4 md:pt-8 flex flex-col md:flex-row items-start gap-8 bg-slate-100">
       <SideBar />
       {content}
     </main>

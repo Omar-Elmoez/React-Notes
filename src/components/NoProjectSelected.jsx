@@ -8,7 +8,7 @@ export default function NoProjectSelected() {
   const { startaddingProject } = useContext(ProjectContext);
 
   return (
-    <div className="mt-24 text-center w-2/3">
+    <div className="mt-24 text-center w-full md:w-2/3">
       <img
         src={NoProjectPhoto}
         alt="An empty task list"

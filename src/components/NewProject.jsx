@@ -62,7 +62,7 @@ export default function NewProject() {
         <p className="text-stone-600">Oops ... Looks like you forget to enter a value</p>
         <p className="text-stone-600 mt-2">Please, make sure you provide a valid value for every input field</p>
       </Modal>
-      <div className="w-[35rem] pt-16">
+      <div className="w-[90%] mx-auto md:w-[35rem] pt-16">
         {/* <menu>
         <li><button>Cancel</button></li>
         <li><button>Save</button></li>
