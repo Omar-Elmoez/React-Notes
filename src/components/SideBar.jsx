@@ -18,7 +18,7 @@ function SideBar() {
   });
 
   return (
-    <aside className="md:w-1/3 w-full py-16 px-8 bg-stone-900 text-stone-50 md:sticky  top-0 md:h-[100dvh] md:rounded-r-xl">
+    <aside className="md:w-[350px] w-full py-16 px-8 bg-stone-900 text-stone-50 md:sticky  top-0 md:h-[100dvh] md:rounded-r-xl">
       <h2 className="text-stone-200 md:text-xl font-bold uppercase">
         Your Projects
       </h2>
