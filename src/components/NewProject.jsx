@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { Input, Modal } from "../components";
-import { ProjectContext } from "../store/project-context";
+import { ProjectContext } from "../contextAPI-store/project-context";
 
 const capitalize = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());

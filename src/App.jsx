@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   NewProject,
   SideBar,
@@ -6,7 +6,7 @@ import {
   SelectedProject,
 } from "./components";
 
-import { ProjectContext } from "./store/project-context";
+import { ProjectContext } from "./contextAPI-store/project-context";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   }
 
   return (
-    <main className="py-4 md:pt-8 flex flex-col md:flex-row items-start gap-8 bg-slate-100">
+    <main className="py-4 md:pb-0 md:pt-8 flex flex-col md:flex-row items-start gap-8 bg-slate-100">
       <SideBar />
       {content}
     </main>

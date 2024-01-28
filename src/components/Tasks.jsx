@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NewTask } from "../components";
-import { TaskContext } from "../store/task-context";
-import { ProjectContext } from "../store/project-context";
+import { TaskContext } from "../contextAPI-store/task-context";
+import { ProjectContext } from "../contextAPI-store/project-context";
 
 const capitalize = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());

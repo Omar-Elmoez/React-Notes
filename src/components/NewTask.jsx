@@ -1,8 +1,8 @@
 // import { useRef } from "react";
 
 import { useContext, useState } from "react";
-import { TaskContext } from "../store/task-context";
-import { ProjectContext } from "../store/project-context";
+import { TaskContext } from "../contextAPI-store/task-context";
+import { ProjectContext } from "../contextAPI-store/project-context";
 
 export default function NewTask() {
 

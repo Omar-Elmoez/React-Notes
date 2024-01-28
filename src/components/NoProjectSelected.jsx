@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import NoProjectPhoto from "../assets/no-projects.png";
 import { Button } from '../components'
-import { ProjectContext } from "../store/project-context";
+import { ProjectContext } from "../contextAPI-store/project-context";
 
 export default function NoProjectSelected() {
 

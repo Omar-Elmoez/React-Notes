@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Button } from "../components";
-import { ProjectContext } from "../store/project-context";
-import { TaskContext } from "../store/task-context";
+import { ProjectContext } from "../contextAPI-store/project-context";
+import { TaskContext } from "../contextAPI-store/task-context";
 
 function SideBar() {
   const { projects, startaddingProject, selectProject, selectedProjectId } =
@@ -18,7 +18,7 @@ function SideBar() {
   });
 
   return (
-    <aside className="md:w-[350px] w-full py-16 px-8 bg-stone-900 text-stone-50 md:sticky  top-0 md:h-[100dvh] md:rounded-r-xl">
+    <aside className="md:w-[350px] w-full py-16 px-8 bg-stone-900 text-stone-50 md:sticky top-0 md:h-[calc(100dvh_-_32px)] md:rounded-r-xl">
       <h2 className="text-stone-200 md:text-xl font-bold uppercase">
         Your Projects
       </h2>
