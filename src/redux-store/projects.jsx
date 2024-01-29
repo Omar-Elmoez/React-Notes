@@ -12,10 +12,10 @@ const projectsSlice = createSlice({
   name: 'project',
   initialState,
   reducers: {
-    startAddingProject(state) {
+    startAddingProject: (state) => {
       state.selectedProjectId = null;
     },
-    addingNewProject(state, action) {
+    addingNewProject: (state, action) => {
       const newProject = {
         id: Math.random(),
         ...action.payload
@@ -25,16 +25,16 @@ const projectsSlice = createSlice({
       state.selectedProjectId = newProject.id;
       state.selectedProject = newProject;
     },
-    selectProject(state, action) {
+    selectProject: (state, action) => {
       state.selectedProjectId = action.payload;
       state.selectedProject = state.projects.find(project => project.id === state.selectedProjectId);
     },
-    removeProject(state) {
+    removeProject: (state) => {
       state.projects = state.projects.filter(project => project.id !== state.selectedProjectId);
       localStorage.setItem('projects', JSON.stringify(state.projects));
       state.selectedProjectId = undefined;
     },
-    cancelAddingProject(state) {
+    cancelAddingProject: (state) => {
       state.selectedProjectId = undefined;
     }
   }

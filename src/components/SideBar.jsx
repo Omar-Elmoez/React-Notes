@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+// import { useContext, useEffect } from "react";
 import { Button } from "../components";
-import { ProjectContext } from "../contextAPI-store/project-context";
-import { TaskContext } from "../contextAPI-store/task-context";
+// import { ProjectContext } from "../contextAPI-store/project-context";
+// import { TaskContext } from "../contextAPI-store/task-context";
 import { useDispatch, useSelector } from "react-redux";
 import { projectsActions } from "../redux-store/projects";
 
@@ -9,8 +9,11 @@ function SideBar() {
   const projects = useSelector(state => state.project.projects);
   const selectedProjectId = useSelector(state => state.project.selectedProjectId);
   const dispatch = useDispatch();
+
+  const tasks = useSelector(state => state.task.tasks)
+
   // const { projects, startaddingProject, selectProject, selectedProjectId } = useContext(ProjectContext);
-  const { tasks } = useContext(TaskContext);
+  // const { tasks } = useContext(TaskContext);
 
   let projectTasksNumber = projects.map((project) => {
     return tasks.reduce((acc, task) => {

@@ -1,15 +1,20 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { NewTask } from "../components";
-import { TaskContext } from "../contextAPI-store/task-context";
-import { ProjectContext } from "../contextAPI-store/project-context";
+// import { TaskContext } from "../contextAPI-store/task-context";
+// import { ProjectContext } from "../contextAPI-store/project-context";
+import { useDispatch, useSelector } from "react-redux";
+import { tasksActions } from "../redux-store/tasks";
 
 const capitalize = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
 export default function Tasks() {
-  const { tasks, removeTask, markAsCompleted } = useContext(TaskContext);
-  const { selectedProjectId } = useContext(ProjectContext);
+  const selectedProjectId = useSelector(state => state.project.selectedProjectId)
+  const tasks = useSelector(state => state.task.tasks)
+
+  // const { tasks, removeTask, markAsCompleted } = useContext(TaskContext);
+  // const { selectedProjectId } = useContext(ProjectContext);
 
   let projectTasksNumber = tasks.reduce((acc, task) => {
     if (task.relatedProjectId === selectedProjectId) {
@@ -17,6 +22,15 @@ export default function Tasks() {
     }
     return acc;
   }, 0)
+
+  const dispatch = useDispatch();
+  const markAsCompleted = (id) => {
+    dispatch(tasksActions.markAsCompleted(id))
+  }
+
+  const removeTask = (id) => {
+    dispatch(tasksActions.removeTask(id))
+  }
 
   return (
     <section>
@@ -42,7 +56,7 @@ export default function Tasks() {
                   </span>
                   <div className="space-x-4 group-hover/item:z-10">
                     <button className="text-stone-700 hover:text-green-500 font-bold" onClick={() => markAsCompleted(task.id)}>
-                      {task.isCompleted ? 'Uncomplete' : 'Complete'}
+                      {task.isCompleted ? 'Undo' : 'Complete'}
                     </button>
                     <button
                       className="text-stone-700 hover:text-red-500"
