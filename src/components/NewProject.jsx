@@ -1,6 +1,8 @@
 import { useContext, useRef, useState } from "react";
 import { Input, Modal } from "../components";
 import { ProjectContext } from "../contextAPI-store/project-context";
+import { projectsActions } from "../redux-store/projects";
+import { useDispatch } from "react-redux";
 
 const capitalize = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
@@ -8,7 +10,8 @@ const capitalize = (str) => {
 
 export default function NewProject() {
 
-  const { addingNewProject, cancelProject } = useContext(ProjectContext)
+  // const { addingNewProject, cancelProject } = useContext(ProjectContext)
+  const dispatch = useDispatch();
 
   const titleRef = useRef();
   const descriptionRef = useRef();
@@ -47,13 +50,12 @@ export default function NewProject() {
       return;
     }
 
-    addingNewProject({
+    dispatch(projectsActions.addingNewProject({
       title: capitalize(enteredTitle),
       description: enteredDescription,
       date: enteredDate,
-    });
+    }));
   };
-
 
   return (
     <>
@@ -68,7 +70,7 @@ export default function NewProject() {
         <li><button>Save</button></li>
       </menu> */}
         <div className="text-right space-x-4 my-4">
-          <button className="text-stone-600 hover:text-stone-950" onClick={cancelProject}>
+          <button className="text-stone-600 hover:text-stone-950" onClick={() => dispatch(projectsActions.cancelAddingProject())}>
             Cancel
           </button>
           <button
