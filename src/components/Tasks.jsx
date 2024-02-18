@@ -4,6 +4,8 @@ import { NewTask } from "../components";
 // import { ProjectContext } from "../contextAPI-store/project-context";
 import { useDispatch, useSelector } from "react-redux";
 import { tasksActions } from "../redux-store/tasks";
+import { useEffect } from "react";
+import { saveTasksToLocalStorage } from "../redux-store/tasks-actions";
 
 const capitalize = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
@@ -12,6 +14,7 @@ const capitalize = (str) => {
 export default function Tasks() {
   const selectedProjectId = useSelector(state => state.project.selectedProjectId)
   const tasks = useSelector(state => state.task.tasks)
+  const tasksState = useSelector(state => state.task)
 
   // const { tasks, removeTask, markAsCompleted } = useContext(TaskContext);
   // const { selectedProjectId } = useContext(ProjectContext);
@@ -31,6 +34,12 @@ export default function Tasks() {
   const removeTask = (id) => {
     dispatch(tasksActions.removeTask(id))
   }
+
+  useEffect(() => {
+    if (tasksState.changed) {
+      dispatch(saveTasksToLocalStorage(tasksState.tasks))
+    }
+  }, [tasksState, dispatch])
 
   return (
     <section>

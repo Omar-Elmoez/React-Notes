@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   NewProject,
   SideBar,
@@ -7,12 +7,21 @@ import {
 } from "./components";
 
 import { ProjectContext } from "./contextAPI-store/project-context";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { saveProjectsToLocalStorage } from "./redux-store/projects-actions";
 
 
 function App() {
+  const dispatch = useDispatch();
   const selectedProjectId = useSelector(state => state.project.selectedProjectId)
+  const projectsState = useSelector(state => state.project)
   // const { selectedProjectId } = useContext(ProjectContext);
+
+  useEffect(() => {
+    if (projectsState.changed) {
+      dispatch(saveProjectsToLocalStorage(projectsState.projects));
+    }
+  }, [projectsState, dispatch])
 
   let content = <SelectedProject />;
 

@@ -4,6 +4,7 @@ const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 const initialState = {
   tasks: storedTasks,
+  changed: false
 }
 
 const tasksSlice = createSlice({
@@ -19,11 +20,11 @@ const tasksSlice = createSlice({
       }
 
       state.tasks.push(newTask);
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+      state.changed = true;
     },
     removeTask: (state, action) => {
       state.tasks = state.tasks.filter(task => task.id !== action.payload);
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+      state.changed = true;
     },
     markAsCompleted: (state, action) => {
       const updatedTasks = state.tasks.map(task => {
@@ -33,7 +34,7 @@ const tasksSlice = createSlice({
         return task;
       });
       state.tasks = updatedTasks;
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+      state.changed = true;
     }
   }
 })

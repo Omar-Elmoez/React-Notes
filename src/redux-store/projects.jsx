@@ -6,6 +6,7 @@ const initialState = {
   projects: storedProjects,
   selectedProject: {},
   selectedProjectId: undefined,
+  changed: false
 }
 
 const projectsSlice = createSlice({
@@ -21,7 +22,7 @@ const projectsSlice = createSlice({
         ...action.payload
       }
       state.projects.push(newProject);
-      localStorage.setItem("projects", JSON.stringify(state.projects));
+      state.changed = true
       state.selectedProjectId = newProject.id;
       state.selectedProject = newProject;
     },
@@ -31,7 +32,7 @@ const projectsSlice = createSlice({
     },
     removeProject: (state) => {
       state.projects = state.projects.filter(project => project.id !== state.selectedProjectId);
-      localStorage.setItem('projects', JSON.stringify(state.projects));
+      state.changed = true;
       state.selectedProjectId = undefined;
     },
     cancelAddingProject: (state) => {
